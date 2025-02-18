@@ -1,0 +1,120 @@
+local ScreenGui = Instance.new("ScreenGui") 
+local Frame = Instance.new("Frame") 
+local UICorner = Instance.new("UICorner") 
+local Title = Instance.new("TextLabel") 
+local TitleCorner = Instance.new("UICorner") 
+local UserLabel = Instance.new("TextLabel") 
+local UserInput = Instance.new("TextBox") 
+local FreezeTrade = Instance.new("TextLabel") 
+local FreezeTradeToggle = Instance.new("TextButton") 
+local AutoAccept = Instance.new("TextLabel") 
+local AutoAcceptToggle = Instance.new("TextButton")
+
+-- New round button for toggling the main GUI visibility
+local ToggleButton = Instance.new("TextButton")  
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui") 
+ScreenGui.ResetOnSpawn = false  -- Prevents the GUI from disappearing on respawn
+
+Frame.Parent = ScreenGui 
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30) 
+Frame.Size = UDim2.new(0, 250, 0, 150) 
+Frame.Position = UDim2.new(0.5, -125, 0.5, -75) 
+Frame.Active = true 
+Frame.Draggable = true
+
+UICorner.Parent = Frame 
+UICorner.CornerRadius = UDim.new(0, 10)
+
+Title.Parent = Frame 
+Title.Text = "My GUI" 
+Title.Font = Enum.Font.SourceSansBold 
+Title.TextSize = 20 
+Title.Size = UDim2.new(1, 0, 0, 30) 
+Title.BackgroundColor3 = Color3.fromRGB(20, 20, 20) 
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+TitleCorner.Parent = Title 
+TitleCorner.CornerRadius = UDim.new(0, 10)
+
+UserLabel.Parent = Frame 
+UserLabel.Text = "User =" 
+UserLabel.Position = UDim2.new(0, 10, 0, 40) 
+UserLabel.Size = UDim2.new(0, 50, 0, 25) 
+UserLabel.TextColor3 = Color3.fromRGB(255, 255, 255) 
+UserLabel.BackgroundTransparency = 1
+
+UserInput.Parent = Frame 
+UserInput.PlaceholderText = "Type Here!" 
+UserInput.Position = UDim2.new(0, 60, 0, 40) 
+UserInput.Size = UDim2.new(0, 150, 0, 25) 
+UserInput.BackgroundColor3 = Color3.fromRGB(50, 50, 50) 
+UserInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+FreezeTrade.Parent = Frame 
+FreezeTrade.Text = "Freeze Trade" 
+FreezeTrade.Position = UDim2.new(0, 10, 0, 70) 
+FreezeTrade.Size = UDim2.new(0, 100, 0, 25) 
+FreezeTrade.TextColor3 = Color3.fromRGB(255, 255, 255) 
+FreezeTrade.BackgroundTransparency = 1
+
+FreezeTradeToggle.Parent = Frame 
+FreezeTradeToggle.Size = UDim2.new(0, 25, 0, 25) 
+FreezeTradeToggle.Position = UDim2.new(0, 180, 0, 70) 
+FreezeTradeToggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0) 
+FreezeTradeToggle.Text = ""
+
+AutoAccept.Parent = Frame 
+AutoAccept.Text = "Auto Accept" 
+AutoAccept.Position = UDim2.new(0, 10, 0, 100) 
+AutoAccept.Size = UDim2.new(0, 100, 0, 25) 
+AutoAccept.TextColor3 = Color3.fromRGB(255, 255, 255) 
+AutoAccept.BackgroundTransparency = 1
+
+AutoAcceptToggle.Parent = Frame 
+AutoAcceptToggle.Size = UDim2.new(0, 25, 0, 25) 
+AutoAcceptToggle.Position = UDim2.new(0, 180, 0, 100) 
+AutoAcceptToggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0) 
+AutoAcceptToggle.Text = ""
+
+-- Create the round toggle button for opening/closing the GUI
+ToggleButton.Parent = ScreenGui
+ToggleButton.Size = UDim2.new(0, 40, 0, 40)  -- Smaller size
+ToggleButton.Position = UDim2.new(0.5, -20, 0, 10)  -- Centered at the top of the screen
+ToggleButton.BackgroundColor3 = Color3.fromRGB(169, 169, 169)  -- Gray color
+ToggleButton.Text = ""  -- Remove text since we are using an image
+
+-- Add border (outline) for the button
+ToggleButton.BorderSizePixel = 2
+ToggleButton.BorderColor3 = Color3.fromRGB(0, 0, 0)  -- Black border
+
+-- Make the button round
+local ToggleUICorner = Instance.new("UICorner")
+ToggleUICorner.Parent = ToggleButton
+ToggleUICorner.CornerRadius = UDim.new(1, 0)  -- Fully round button
+
+-- Function to toggle the visibility of the Frame (the main GUI)
+local function ToggleGUI()
+    Frame.Visible = not Frame.Visible
+end
+
+-- Connect the button's click event to the function
+ToggleButton.MouseButton1Click:Connect(ToggleGUI)
+
+local function ToggleButton(button) 
+    if button.BackgroundColor3 == Color3.fromRGB(0, 0, 0) then 
+        button.BackgroundColor3 = Color3.fromRGB(0, 255, 0) 
+    else 
+        button.BackgroundColor3 = Color3.fromRGB(0, 0, 0) 
+    end 
+end
+
+FreezeTradeToggle.MouseButton1Click:Connect(function() 
+    ToggleButton(FreezeTradeToggle) 
+    print("Freeze Trade: " .. tostring(FreezeTradeToggle.BackgroundColor3 == Color3.fromRGB(0, 255, 0))) 
+end)
+
+AutoAcceptToggle.MouseButton1Click:Connect(function() 
+    ToggleButton(AutoAcceptToggle) 
+    print("Auto Accept: " .. tostring(AutoAcceptToggle.BackgroundColor3 == Color3.fromRGB(0, 255, 0))) 
+end)
